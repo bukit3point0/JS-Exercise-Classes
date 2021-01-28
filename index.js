@@ -85,19 +85,19 @@ class Airplane {
       this.tank = this.tank + gallons;
     }
     drive(distance) {
-      for (let i=distance; i>0; i--) {
-        console.log(`current distance ${i}`);
-        if (((this.tank*this.milesPerGallon).toFixed(2)) >= 1) {
-          this.tank = this.tank - (1/this.milesPerGallon);
-          this.odometer = this.odometer + 1;
-          //console.log(this.odometer);
-        //  distance = distance - 1;
-          //console.log(`tank at ${this.tank} odometer at ${this.odometer} distance at ${distance} `);
+      if (((this.tank*this.milesPerGallon) - distance) >= 0) {
+        this.odometer = this.odometer + distance;
+        // console.log(`odometer ${this.odometer}`)
+        this.tank = ((this.tank*this.milesPerGallon) - distance)/this.milesPerGallon;
+        // console.log(`tank of gas ${this.tank}`);
         } else {
-        	console.log(`I ran out of fuel at ${this.odometer} miles!`);
-          return `I ran out of fuel at ${this.odometer} miles!`;
+        distance = distance - (this.tank*this.milesPerGallon);
+        // console.log(`distance ${distance}`)
+        this.odometer = this.odometer + (this.tank*this.milesPerGallon);
+        this.tank = 0;
+        // console.log(`odometer ${this.odometer}`);
+        return (`I ran out of fuel at ${this.odometer} miles!`);
         }
-    }
 }
 }
   /*
